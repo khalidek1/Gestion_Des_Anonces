@@ -26,6 +26,22 @@ public class Anonce implements Serializable {
     @JoinColumn(name = "idProprietaire")
     private Membre idProprietaire;
 
+    public String getNomAnonce() {
+        return nomAnonce;
+    }
+
+    public void setNomAnonce(String nomAnonce) {
+        this.nomAnonce = nomAnonce;
+    }
+
+    public ArrayList<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(ArrayList<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "Categories_Anonces",
@@ -43,7 +59,7 @@ public class Anonce implements Serializable {
     public Anonce() {
     }
 
-    public Anonce(int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float coordonneX, float coordonneY, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations) {
+    public Anonce(int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float coordonneX, float coordonneY, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations) {
         this.surface = surface;
         this.nbreSalleBain = nbreSalleBain;
         this.nbreEtages = nbreEtages;
@@ -56,13 +72,14 @@ public class Anonce implements Serializable {
         this.dateCreationAnonce = dateCreationAnonce;
         this.email = email;
         this.telephone = telephone;
+        this.nomAnonce = nomAnonce;
         this.idVille = idVille;
         this.idProprietaire = idProprietaire;
         this.categories = categories;
         Reservations = reservations;
     }
 
-    public Anonce(long idAnonce, int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float coordonneX, float coordonneY, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations) {
+    public Anonce(long idAnonce, int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float coordonneX, float coordonneY, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations) {
         this.idAnonce = idAnonce;
         this.surface = surface;
         this.nbreSalleBain = nbreSalleBain;
@@ -76,6 +93,7 @@ public class Anonce implements Serializable {
         this.dateCreationAnonce = dateCreationAnonce;
         this.email = email;
         this.telephone = telephone;
+        this.nomAnonce = nomAnonce;
         this.idVille = idVille;
         this.idProprietaire = idProprietaire;
         this.categories = categories;
