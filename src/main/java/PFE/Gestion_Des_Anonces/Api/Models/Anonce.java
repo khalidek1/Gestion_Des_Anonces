@@ -16,7 +16,7 @@ public class Anonce implements Serializable {
     private float prix, coordonneX , coordonneY ;
     private char type , etat;
     private Timestamp dateCreationAnonce;
-    private String email,telephone;
+    private String email,telephone,nomAnonce;
 
     @ManyToOne
     @JoinColumn(name = "idVille")
