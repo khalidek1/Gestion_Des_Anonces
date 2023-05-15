@@ -13,7 +13,7 @@ public class Anonce implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long idAnonce;
     private int surface , nbreSalleBain , nbreEtages , nbreChambres;
-    private float prix, coordonneX , coordonneY ;
+    private float prix, latitude , longitude ;
     private char type , etat;
     private Timestamp dateCreationAnonce;
     private String email,telephone,nomAnonce;
@@ -25,22 +25,6 @@ public class Anonce implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idProprietaire")
     private Membre idProprietaire;
-
-    public String getNomAnonce() {
-        return nomAnonce;
-    }
-
-    public void setNomAnonce(String nomAnonce) {
-        this.nomAnonce = nomAnonce;
-    }
-
-    public ArrayList<Commentaire> getCommentaires() {
-        return commentaires;
-    }
-
-    public void setCommentaires(ArrayList<Commentaire> commentaires) {
-        this.commentaires = commentaires;
-    }
 
     @ManyToMany
     @JoinTable(
@@ -59,14 +43,14 @@ public class Anonce implements Serializable {
     public Anonce() {
     }
 
-    public Anonce(int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float coordonneX, float coordonneY, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations) {
+    public Anonce(int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float latitude, float longitude, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations, ArrayList<Commentaire> commentaires) {
         this.surface = surface;
         this.nbreSalleBain = nbreSalleBain;
         this.nbreEtages = nbreEtages;
         this.nbreChambres = nbreChambres;
         this.prix = prix;
-        this.coordonneX = coordonneX;
-        this.coordonneY = coordonneY;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.type = type;
         this.etat = etat;
         this.dateCreationAnonce = dateCreationAnonce;
@@ -77,17 +61,18 @@ public class Anonce implements Serializable {
         this.idProprietaire = idProprietaire;
         this.categories = categories;
         Reservations = reservations;
+        this.commentaires = commentaires;
     }
 
-    public Anonce(long idAnonce, int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float coordonneX, float coordonneY, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations) {
+    public Anonce(long idAnonce, int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float latitude, float longitude, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations, ArrayList<Commentaire> commentaires) {
         this.idAnonce = idAnonce;
         this.surface = surface;
         this.nbreSalleBain = nbreSalleBain;
         this.nbreEtages = nbreEtages;
         this.nbreChambres = nbreChambres;
         this.prix = prix;
-        this.coordonneX = coordonneX;
-        this.coordonneY = coordonneY;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.type = type;
         this.etat = etat;
         this.dateCreationAnonce = dateCreationAnonce;
@@ -98,6 +83,7 @@ public class Anonce implements Serializable {
         this.idProprietaire = idProprietaire;
         this.categories = categories;
         Reservations = reservations;
+        this.commentaires = commentaires;
     }
 
     public long getIdAnonce() {
@@ -148,20 +134,20 @@ public class Anonce implements Serializable {
         this.prix = prix;
     }
 
-    public float getCoordonneX() {
-        return coordonneX;
+    public float getLatitude() {
+        return latitude;
     }
 
-    public void setCoordonneX(float coordonneX) {
-        this.coordonneX = coordonneX;
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
     }
 
-    public float getCoordonneY() {
-        return coordonneY;
+    public float getLongitude() {
+        return longitude;
     }
 
-    public void setCoordonneY(float coordonneY) {
-        this.coordonneY = coordonneY;
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
     public char getType() {
@@ -204,6 +190,14 @@ public class Anonce implements Serializable {
         this.telephone = telephone;
     }
 
+    public String getNomAnonce() {
+        return nomAnonce;
+    }
+
+    public void setNomAnonce(String nomAnonce) {
+        this.nomAnonce = nomAnonce;
+    }
+
     public Ville getIdVille() {
         return idVille;
     }
@@ -234,5 +228,13 @@ public class Anonce implements Serializable {
 
     public void setReservations(ArrayList<Reservation> reservations) {
         Reservations = reservations;
+    }
+
+    public ArrayList<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(ArrayList<Commentaire> commentaires) {
+        this.commentaires = commentaires;
     }
 }
