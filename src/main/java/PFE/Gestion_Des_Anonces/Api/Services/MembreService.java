@@ -18,4 +18,9 @@ public class MembreService {
     public List<Membre> getMembres(){
         return Repository.findAll();
     }
+
+    public Membre addMembre(Membre newUser) {
+        Repository.save(newUser);
+        return newUser;
+    }
 }

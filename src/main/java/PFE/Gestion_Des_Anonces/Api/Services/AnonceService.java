@@ -1,6 +1,7 @@
 package PFE.Gestion_Des_Anonces.Api.Services;
 
 import PFE.Gestion_Des_Anonces.Api.Models.Anonce;
+import PFE.Gestion_Des_Anonces.Api.Models.Membre;
 import PFE.Gestion_Des_Anonces.Api.Repositories.AnonceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,4 +19,10 @@ public class AnonceService {
     public List<Anonce> getAnonces(){
         return Repository.findAll();
     }
+
+    public Anonce addMembre(Anonce anonce) {
+        Repository.save(anonce);
+        return anonce;
+    }
+
 }

@@ -11,7 +11,10 @@ public class Membre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idMembre;
-    private String email,nom,password,prenom;
+
+    @Column(unique=true)
+    private String email;
+    private String nom,password,prenom;
 
     private char sexe;
     private Timestamp dateNaissance,dateCreationCompte;
