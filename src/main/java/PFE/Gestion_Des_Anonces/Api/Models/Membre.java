@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "Membre")
@@ -11,7 +12,6 @@ public class Membre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idMembre;
-
     @Column(unique=true)
     private String email;
     private String nom,password,prenom;
@@ -19,6 +19,7 @@ public class Membre implements Serializable {
     private char sexe;
     private Timestamp dateNaissance,dateCreationCompte;
     @OneToMany(mappedBy = "idProprietaire")
+    @JsonIgnore
     private List<Anonce> anonces;
     @OneToMany(mappedBy = "idMembre")
     private List<Reservation> reservations;

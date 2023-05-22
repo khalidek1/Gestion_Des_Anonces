@@ -1,23 +1,28 @@
 package PFE.Gestion_Des_Anonces.Api.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Anonce")
 public class Anonce implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idAnonce;
     private int surface , nbreSalleBain , nbreEtages , nbreChambres;
     private float prix, latitude , longitude ;
     private char type , etat;
     private Timestamp dateCreationAnonce;
-    private String email,telephone,nomAnonce;
+    private String email;
+    private String telephone;
+    private String nomAnonce;
+    private String description;
 
+    private String imageUrl;
     @ManyToOne
     @JoinColumn(name = "idVille")
     private Ville idVille;
@@ -27,65 +32,35 @@ public class Anonce implements Serializable {
     private Membre idProprietaire;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "Categories_Anonces",
             joinColumns = @JoinColumn(name = "idAnonce"),
             inverseJoinColumns = @JoinColumn(name = "idCategorie")
     )
-    private ArrayList<Categorie> categories;
+    private List<Categorie> categories;
 
     @OneToMany(mappedBy="idAnonce")
-    private ArrayList<Reservation> Reservations;
+    private List<Reservation> Reservations;
 
     @OneToMany(mappedBy="idAnonce")
-    private ArrayList<Commentaire> commentaires;
+    private List<Commentaire> commentaires;
 
-    public Anonce() {
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public Anonce(int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float latitude, float longitude, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations, ArrayList<Commentaire> commentaires) {
-        this.surface = surface;
-        this.nbreSalleBain = nbreSalleBain;
-        this.nbreEtages = nbreEtages;
-        this.nbreChambres = nbreChambres;
-        this.prix = prix;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.type = type;
-        this.etat = etat;
-        this.dateCreationAnonce = dateCreationAnonce;
-        this.email = email;
-        this.telephone = telephone;
-        this.nomAnonce = nomAnonce;
-        this.idVille = idVille;
-        this.idProprietaire = idProprietaire;
-        this.categories = categories;
-        Reservations = reservations;
-        this.commentaires = commentaires;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public Anonce(long idAnonce, int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float latitude, float longitude, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, Ville idVille, Membre idProprietaire, ArrayList<Categorie> categories, ArrayList<Reservation> reservations, ArrayList<Commentaire> commentaires) {
-        this.idAnonce = idAnonce;
-        this.surface = surface;
-        this.nbreSalleBain = nbreSalleBain;
-        this.nbreEtages = nbreEtages;
-        this.nbreChambres = nbreChambres;
-        this.prix = prix;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.type = type;
-        this.etat = etat;
-        this.dateCreationAnonce = dateCreationAnonce;
-        this.email = email;
-        this.telephone = telephone;
-        this.nomAnonce = nomAnonce;
-        this.idVille = idVille;
-        this.idProprietaire = idProprietaire;
-        this.categories = categories;
-        Reservations = reservations;
-        this.commentaires = commentaires;
+    public String getDescription() {
+        return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public long getIdAnonce() {
         return idAnonce;
     }
@@ -214,27 +189,77 @@ public class Anonce implements Serializable {
         this.idProprietaire = idProprietaire;
     }
 
-    public ArrayList<Categorie> getCategories() {
+    public List<Categorie> getCategories() {
         return categories;
     }
 
-    public void setCategories(ArrayList<Categorie> categories) {
+    public void setCategories(List<Categorie> categories) {
         this.categories = categories;
     }
 
-    public ArrayList<Reservation> getReservations() {
+    public List<Reservation> getReservations() {
         return Reservations;
     }
 
-    public void setReservations(ArrayList<Reservation> reservations) {
+    public void setReservations(List<Reservation> reservations) {
         Reservations = reservations;
     }
 
-    public ArrayList<Commentaire> getCommentaires() {
+    public List<Commentaire> getCommentaires() {
         return commentaires;
     }
 
-    public void setCommentaires(ArrayList<Commentaire> commentaires) {
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public Anonce(int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float latitude, float longitude, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, String description, String imageUrl, Ville idVille, Membre idProprietaire, List<Categorie> categories, List<Reservation> reservations, List<Commentaire> commentaires) {
+        this.surface = surface;
+        this.nbreSalleBain = nbreSalleBain;
+        this.nbreEtages = nbreEtages;
+        this.nbreChambres = nbreChambres;
+        this.prix = prix;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type = type;
+        this.etat = etat;
+        this.dateCreationAnonce = dateCreationAnonce;
+        this.email = email;
+        this.telephone = telephone;
+        this.nomAnonce = nomAnonce;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.idVille = idVille;
+        this.idProprietaire = idProprietaire;
+        this.categories = categories;
+        Reservations = reservations;
+        this.commentaires = commentaires;
+    }
+
+    public Anonce() {
+    }
+
+    public Anonce(long idAnonce, int surface, int nbreSalleBain, int nbreEtages, int nbreChambres, float prix, float latitude, float longitude, char type, char etat, Timestamp dateCreationAnonce, String email, String telephone, String nomAnonce, String description, String imageUrl, Ville idVille, Membre idProprietaire, List<Categorie> categories, List<Reservation> reservations, List<Commentaire> commentaires) {
+        this.idAnonce = idAnonce;
+        this.surface = surface;
+        this.nbreSalleBain = nbreSalleBain;
+        this.nbreEtages = nbreEtages;
+        this.nbreChambres = nbreChambres;
+        this.prix = prix;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type = type;
+        this.etat = etat;
+        this.dateCreationAnonce = dateCreationAnonce;
+        this.email = email;
+        this.telephone = telephone;
+        this.nomAnonce = nomAnonce;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.idVille = idVille;
+        this.idProprietaire = idProprietaire;
+        this.categories = categories;
+        Reservations = reservations;
         this.commentaires = commentaires;
     }
 }

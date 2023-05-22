@@ -16,22 +16,26 @@ public class Reservation implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idMembre")
     private Membre idMembre;
-    private Timestamp DateReservation;
+
+    private Timestamp DateReservationArrive;
+    private Timestamp DateReservationDepart;
 
     public Reservation() {
     }
 
-    public Reservation(Anonce anonce, Membre membre, Timestamp dateReservation) {
-        this.idAnonce = anonce;
-        this.idMembre = membre;
-        DateReservation = dateReservation;
+    public Reservation(Anonce idAnonce, Membre idMembre, Timestamp dateReservationArrive, Timestamp dateReservationDepart) {
+        this.idAnonce = idAnonce;
+        this.idMembre = idMembre;
+        DateReservationArrive = dateReservationArrive;
+        DateReservationDepart = dateReservationDepart;
     }
 
-    public Reservation(long idReservation, Anonce anonce, Membre membre, Timestamp dateReservation) {
+    public Reservation(long idReservation, Anonce idAnonce, Membre idMembre, Timestamp dateReservationArrive, Timestamp dateReservationDepart) {
         this.idReservation = idReservation;
-        this.idAnonce = anonce;
-        this.idMembre = membre;
-        DateReservation = dateReservation;
+        this.idAnonce = idAnonce;
+        this.idMembre = idMembre;
+        DateReservationArrive = dateReservationArrive;
+        DateReservationDepart = dateReservationDepart;
     }
 
     public long getIdReservation() {
@@ -42,27 +46,35 @@ public class Reservation implements Serializable {
         this.idReservation = idReservation;
     }
 
-    public Anonce getAnonce() {
+    public Anonce getIdAnonce() {
         return idAnonce;
     }
 
-    public void setAnonce(Anonce anonce) {
-        this.idAnonce = anonce;
+    public void setIdAnonce(Anonce idAnonce) {
+        this.idAnonce = idAnonce;
     }
 
-    public Membre getMembre() {
+    public Membre getIdMembre() {
         return idMembre;
     }
 
-    public void setMembre(Membre membre) {
-        this.idMembre = membre;
+    public void setIdMembre(Membre idMembre) {
+        this.idMembre = idMembre;
     }
 
-    public Timestamp getDateReservation() {
-        return DateReservation;
+    public Timestamp getDateReservationArrive() {
+        return DateReservationArrive;
     }
 
-    public void setDateReservation(Timestamp dateReservation) {
-        DateReservation = dateReservation;
+    public void setDateReservationArrive(Timestamp dateReservationArrive) {
+        DateReservationArrive = dateReservationArrive;
+    }
+
+    public Timestamp getDateReservationDepart() {
+        return DateReservationDepart;
+    }
+
+    public void setDateReservationDepart(Timestamp dateReservationDepart) {
+        DateReservationDepart = dateReservationDepart;
     }
 }

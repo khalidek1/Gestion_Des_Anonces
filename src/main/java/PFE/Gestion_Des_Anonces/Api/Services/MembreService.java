@@ -19,8 +19,7 @@ public class MembreService {
         return Repository.findAll();
     }
 
-    public Membre addMembre(Membre newUser) {
+    public void addMembre(Membre newUser) {
         Repository.save(newUser);
-        return newUser;
     }
 }

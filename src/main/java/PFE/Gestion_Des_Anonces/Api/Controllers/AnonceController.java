@@ -3,25 +3,34 @@ package PFE.Gestion_Des_Anonces.Api.Controllers;
 import PFE.Gestion_Des_Anonces.Api.Models.Anonce;
 import PFE.Gestion_Des_Anonces.Api.Services.AnonceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController()
 public class AnonceController {
-    private final AnonceService anonceService;
+    private final AnonceService Service;
     public AnonceService getAnonceService() {
-        return anonceService;
+        return Service;
     }
     @Autowired
     public AnonceController(AnonceService X) {
-        this.anonceService=X;
+        this.Service=X;
     }
 
     @GetMapping("/Anonce")
-    public List<Anonce> getAnonce(){
-        System.out.println("Get Request detected!");
-        return anonceService.getAnonces();
+    public List<Anonce> getAnonces(){
+        return Service.getAnonces();
+    }
+
+    @PostMapping(path = "/Anonce",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveAnonce(@RequestBody Anonce anonce){
+        Service.addAnonce(anonce);
     }
 }

@@ -1,5 +1,6 @@
 package PFE.Gestion_Des_Anonces.Api.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class Categorie implements Serializable {
     @Id
     private String idCategorie;
 
+    @JsonIgnore
     @ManyToMany(mappedBy="categories")
     private ArrayList<Anonce> Anonces;
 

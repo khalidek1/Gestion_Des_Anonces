@@ -11,6 +11,7 @@ public class Ville {
     private String idVille;
 
     @ManyToOne()
+    @JoinColumn(name = "idRegion")
     private Region idRegion;
 
     @OneToMany(mappedBy = "idVille")
