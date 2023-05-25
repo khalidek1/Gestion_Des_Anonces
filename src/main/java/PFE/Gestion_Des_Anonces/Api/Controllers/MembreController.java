@@ -42,6 +42,8 @@ public class MembreController {
         Service.addMembre(newUser);
     }
 
+    //post mapping by id ->emmail mot passe
+
 
 
 }
