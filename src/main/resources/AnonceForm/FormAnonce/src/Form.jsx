@@ -45,8 +45,8 @@ const Form = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    AnonceType: "",
-    proprieterType: "",
+    // AnonceType: "",
+    // proprieterType: "",
     Prix: "0",
     Surface: "0",
     numberChambre: "0",
@@ -87,7 +87,7 @@ const Form = () => {
       //     console.error(error);
       //   }
       axios
-        .post("http://localhost:8080/api/form", formData)
+        .post("http://localhost:8080/Anonce", formData)
         .then((response) => {
           console.log(response.data); // Handle success response
         })
@@ -111,11 +111,11 @@ const Form = () => {
         isValid = false;
       }
     } else if (currentStep === 2) {
-      if (!formData.Prix.trim()) {
+      if (!formData.Prix.trim === "" && parseFloat(formData.Prix) < 0) {
         errors.Prix = "Prix is required";
         isValid = false;
       }
-      if (!formData.Surface.trim()) {
+      if (!formData.Surface.trim === "" && parseFloat(formData.Surface) < 0) {
         errors.Surface = "Surface is required";
         isValid = false;
       }
