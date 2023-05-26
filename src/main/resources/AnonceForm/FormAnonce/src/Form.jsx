@@ -1,8 +1,48 @@
 import React, { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import axios from "axios";
 import "./Form.css";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+delete L.Icon.Default.prototype._getIconUrl;
 
 const Form = () => {
+  const center_position = [33.66492, -7.817975];
+  const [markerPosition, setMarkerPosition] = useState({
+    lat: 33.66492,
+    lng: -7.817975,
+  });
+  const handleMapClick = (e) => setMarkerPosition(e.latlng);
+
+  const handleClick = () => {
+    if (markerPosition) {
+      alert(markerPosition.lat, markerPosition.lng);
+    } else {
+      alert("No marker selected.");
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    // Do something with the selected files
+    console.log(files);
+  };
+
+  const MapClickEvents = () => {
+    useMapEvents({
+      click: handleMapClick,
+    });
+    return null;
+  };
+
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     AnonceType: "",
@@ -223,13 +263,102 @@ const Form = () => {
           )}
           {currentStep === 3 && (
             <div>
-              <h2>Step 3: Confirmation</h2>
+              <h2>Step 3: maps</h2>
+              <div className="maps">
+                <MapContainer
+                  center={center_position}
+                  zoom={7}
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker
+                    position={[markerPosition.lat, markerPosition.lng]}
+                    draggable={true}
+                    eventHandlers={{
+                      move: (e) => {
+                        console.log(e.target.getLatLng());
+                        setMarkerPosition(e.target.getLatLng());
+                      },
+                    }}
+                  >
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable. Marker
+                      Position:
+                    </Popup>
+                  </Marker>
+                </MapContainer>
+                <div>
+                  <div>
+                    <select id="region" name="region" className="region">
+                      <option value="option1-1">Option 1-1</option>
+                      <option value="option1-2">Option 1-2</option>
+                      <option value="option1-3">Option 1-3</option>
+                    </select>
+                  </div>
+                  <div>
+                    <select id="optvilleion1" name="ville" className="ville">
+                      <option value="option1-1">Option 1-1</option>
+                      <option value="option1-2">Option 1-2</option>
+                      <option value="option1-3">Option 1-3</option>
+                    </select>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="adresse"
+                    className="adresse"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          {currentStep === 4 && (
+            <div>
+              <h2>Step 4: title</h2>
+              <input type="text" placeholder="adresse" className="adresse" />
+              <textarea
+                name="dexcription"
+                id=""
+                placeholder="dexcription"
+                cols="20"
+                rows="6"
+              ></textarea>
+            </div>
+          )}
+          {currentStep === 5 && (
+            <div>
+              <h2>Step 5: Confirmation</h2>
+              {currentStep === 5 && (
+                <div>
+                  <div className="">
+                    <label htmlFor="image" className="">
+                      Select an image:
+                    </label>
+                    <input
+                      type="file"
+                      id="image"
+                      name="image"
+                      accept="image/jpeg,image/png, image/jpg"
+                      className=""
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          {currentStep === 6 && (
+            <div>
+              <h2>Step 6: Confirmation</h2>
               <p>AnonceType: {formData.AnonceType}</p>
               <p>proprieterType: {formData.proprieterType}</p>
               <p>Prix: {formData.Prix}</p>
               <p>Surface: {formData.Surface}</p>
               <p>numberChambre: {formData.numberChambre}</p>
               <p>sallebien: {formData.sallebien}</p>
+              <p>sallebien: [markerPosition.lat, markerPosition.lng]</p>
             </div>
           )}
           <div className="button-group">
@@ -242,7 +371,7 @@ const Form = () => {
                 Previous
               </button>
             )}
-            {currentStep < 3 ? (
+            {currentStep < 6 ? (
               <button
                 type="button"
                 className="next-button "
@@ -261,5 +390,12 @@ const Form = () => {
     </section>
   );
 };
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 export default Form;
